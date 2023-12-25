@@ -2,7 +2,7 @@ const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Implement class DepthCalculator with method calculateDepth
- * that calculates deoth of nested array
+ * that calculates depth of nested array
  * 
  * @example
  * 
@@ -13,12 +13,32 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 class DepthCalculator {
-  calculateDepth(/* arr */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  
+  calculateDepth(arr) {
+    
+    let depth = 1;
+    
+    if(arr.length > 0){
+      
+      arr.forEach((element)=> {
+      if(Array.isArray(element)){
+        let depth2 = this.calculateDepth(element) + 1;
+        depth = Math.max(depth, depth2)
+      }
+    });
+    }
+    
+    return depth;
   }
 }
 
 module.exports = {
   DepthCalculator
 };
+
+
+const depthCalc = new DepthCalculator();
+//console.log(depthCalc.calculateDepth([8, [[]]], [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]], []]]], []]]]]]]]], []]]], []]]]]]]]]]));
+//console.log(Array.isArray([[]]), [[]].length);
+//console.log(depthCalc.calculateDepth([1, 2, 3, [4, 5]]) );
+//console.log(depthCalc.calculateDepth([1, [8, [[]]], [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]], []]]], []]]]]]]]], []]]], []]]]]]]]]], 2, 3, [8, [[[[[[[[[[[[[[]]]]]]]]]]]]]]], [8, [[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]], 4, 5, ['6575', ['adas', ['dfg', [0]]]]]) );
